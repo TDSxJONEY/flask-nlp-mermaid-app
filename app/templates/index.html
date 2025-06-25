@@ -1,0 +1,158 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Summary and Mermaid Generator</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-top: 30px;
+        }
+
+        /* Form Styles */
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        textarea, input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Summary and Mermaid Code Styles */
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 14px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .copy-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .copy-btn:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            font-size: 16px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            form {
+                width: 95%;
+            }
+
+            textarea, input[type="number"], button {
+                font-size: 14px;
+            }
+
+            .copy-btn {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Text Summarization and Mermaid Diagram Generator</h1>
+
+    <form method="POST">
+        <label for="input_text">Enter your text:</label>
+        <textarea name="input_text" rows="10" placeholder="Paste your text here..."></textarea>
+
+        <label for="max_words">Maximum words in summary:</label>
+        <input type="number" name="max_words" value="150" min="1">
+
+        <button type="submit">Generate</button>
+    </form>
+
+    {% if summary %}
+        <h2>Summary</h2>
+        <p>{{ summary }}</p>
+    {% endif %}
+
+    {% if mermaid_code %}
+        <h2>Mermaid Code</h2>
+        <pre id="mermaidCode">{{ mermaid_code }}</pre>
+        <button class="copy-btn" onclick="copyCode()">Copy Code</button>
+        <p>Preview this diagram at <a href="https://mermaid.live" target="_blank">Mermaid Live Editor</a></p>
+    {% endif %}
+
+    <script>
+        function copyCode() {
+            const code = document.getElementById('mermaidCode').innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                alert('Mermaid code copied to clipboard!');
+            });
+        }
+    </script>
+
+</body>
+</html>
